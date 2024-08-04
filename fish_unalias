@@ -1,0 +1,19 @@
+#! /usr/bin/fish
+
+# Copy this to /usr/bin 
+# sudo cp fish_unalias /usr/bin/
+# sudo chmod +x /usr/bin/fish_unalias 
+
+set alias_name $argv[1]
+
+if begin test (count $argv) -ne 1; or test -z $alias_name; end
+    echo "Usage: fish_unalias [alias_name]"
+else if [ -e "/home/$USER/.config/fish/functions/$alias_name.fish" ]
+	rm "/home/$USER/.config/fish/functions/$alias_name.fish"
+	# functions -e "$alias_name"
+	echo "Removed $alias_name from current fish environment permanently."
+	echo "Restart the shell to see the changes!"
+else
+	echo "alias does not exists!"
+end
+

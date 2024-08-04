@@ -1,0 +1,21 @@
+#! /usr/bin/bash
+SEED_FOLDER_LOC_="/home/$USER/react_source_app"
+
+if [ ! -d "$SEED_FOLDER_LOC_" ];
+then
+	echo "SEED FOLDER isn't initialised yet! Initialising....."
+	cd "/home/$USER" || return 1
+	yarn create react-app react_source_app
+	cd - || return 1
+	echo "SEED Folder initialised" 
+fi
+
+read -r -p "Enter Project Name: " PROJECT_NAME_
+mkdir "$PROJECT_NAME_"
+cd "$PROJECT_NAME_" || return 2
+yarn init
+yarn add --offline react react-dom react-scripts cra-template web-vitals
+cp -r "$SEED_FOLDER_LOC_/public" ./
+cp -r "$SEED_FOLDER_LOC_/src" ./
+cp "$SEED_FOLDER_LOC_/README.md" ./
+cp "$SEED_FOLDER_LOC_/package.json" ./
